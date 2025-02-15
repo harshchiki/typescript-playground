@@ -72,3 +72,77 @@ Installs nodemon. Nodemon is a tool that helps you develop Node.js applications 
 7. Install ts-node-dev
 > npm install ts-node-dev --save-dev
 Installs ts-node-dev. Ts-node-dev is a TypeScript execution engine that allows you to run TypeScript files directly using Node.js. It is a development tool that monitors your TypeScript files and automatically recompiles them when changes are detected.
+
+
+-----
+
+
+# Local Debugging
+1. Update package.json Scripts
+Modify your package.json "scripts" section to ensure you're using ts-node-dev with debugging enabled:
+
+--> "--inspect" enables debugging in VS Code
+--> "--respawn" restarts automatically when files change
+--> "--transpile-only" speeds up execution by skipping full type checking
+
+```
+"scripts": {
+  "start": "node dist/index.js",
+  "build": "tsc",
+  "dev": "ts-node-dev --respawn --inspect --transpile-only src/index.ts"
+}
+--inspect → Enables debugging in VS Code
+--respawn → Restarts automatically when files change
+--transpile-only → Speeds up execution by skipping full type checking
+```
+
+2. Create a launch.json File in VS Code
+Open VS Code
+Go to Run & Debug (Ctrl+Shift+D)
+Click "create a launch.json file"
+Select "Node.js"
+Replace the generated launch.json with the following:
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug TypeScript",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "sourceMaps": true,
+      "protocol": "inspector",
+      "timeout": 10000,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    }
+  ]
+}
+```
+"request": "attach" → Attaches to a running process
+"port": 9229 → Must match the debug port from --inspect
+"sourceMaps": true → Enables debugging with TypeScript source maps
+"restart": true → Automatically reconnects if the process restarts
+"timeout": 10000 → Gives enough time to attach
+
+3. Run
+> npm run dev
+
+## Bonus: Auto Restart Debugging with nodemon
+If you want auto-restart debugging, modify package.json:
+
+
+Edit package.json
+```
+"scripts": {
+  "debug": "nodemon --inspect-brk --ext ts --exec ts-node src/index.ts"
+}
+```
+Then run:
+
+> npm run debug
+
+This will:  
+- Start TypeScript debugging
+- Restart on file changes
