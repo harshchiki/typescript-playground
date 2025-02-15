@@ -1,5 +1,14 @@
 # typescript-playground
+## Run the project
+> npm run dev
 
+## Debug the project
+> npm run debug
+
+
+
+
+------
 1. Initialize a package.json (Optional, but recommended)
 > npm init -y
 Initializes package.json.
@@ -146,3 +155,19 @@ Then run:
 This will:  
 - Start TypeScript debugging
 - Restart on file changes
+
+
+
+
+-----
+
+🚀 TL;DR: Why Use TypeScript?
+| Feature               | JavaScript | TypeScript         |
+| --------------------- | ---------- | ------------------ |
+| Type Safety           | ❌ No       | ✅ Yes              |
+| Object Validation     | ❌ No       | ✅ Yes (Interfaces) |
+| Optional Params       | ❌ No       | ✅ Yes (?)          |
+| Enum Support          | ❌ No       | ✅ Yes              |
+| Function Overloading  | ❌ No       | ✅ Yes              |
+| Generics              | ❌ No       | ✅ Yes              |
+| Compile-Time Checking | ❌ No       | ✅ Yes              |
